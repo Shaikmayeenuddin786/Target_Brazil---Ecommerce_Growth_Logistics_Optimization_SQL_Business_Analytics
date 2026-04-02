@@ -1,5 +1,9 @@
 # Target Brazil – E‑commerce Analysis
+
 ---
+
+
+
 
 ## Quick Section Summary
 
@@ -13,7 +17,7 @@
 
 ## Why This Project
 
-Target expanded into Brazil and wanted to understand how its e‑commerce business was performing. Instead of guessing, we dug into two years of real transactional data to uncover what’s working, what’s not, and where we can grow. This repo shares the SQL queries and insights so the team can make smarter decisions.
+Target expanded into Brazil and wanted to understand how its e‑commerce business was performing. Instead of guessing, we dug into two years of real transactional data to uncover what’s working, what’s not, and where we can grow. This repo shares the SQL queries and insights so the Sales, Marketting teams and Leadership team can make smarter decisions.
 
 ---
 
