@@ -1,4 +1,4 @@
-# Target Brazil – E‑commerce Analysis
+# Target Brazil – Ecommerce Growth & Logistics Optimization | SQL Analytics, Strategic Recommendations
 
 ---
 
