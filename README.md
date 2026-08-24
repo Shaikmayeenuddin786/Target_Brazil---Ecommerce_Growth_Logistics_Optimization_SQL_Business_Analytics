@@ -5,17 +5,20 @@
 
 
 
-## Quick Section Summary
+## **Quick Overview**
 
-- Why this Project
-- Business Problem
-- Objectives
-- Technical Stack
-- Repository Structure
+| **Section** | **Details** |
+| :--- | :--- |
+| **Business Problem** | Target Brazil needed to understand its performance. They didn't have clear answers on order growth, which states drive revenue, where logistics are hurting, and what payment habits reveal. Without this, it's hard to allocate budgets or improve shipping. |
+| **Objectives** | 1. Measure growth (yearly, monthly, seasonal trends)<br>2. Spot state-wise patterns (revenue, orders, freight, delivery times)<br>3. Evaluate logistics (delivery accuracy, regional issues)<br>4. Understand payment behavior (credit vs. UPI, installments)<br>5. Provide clear, actionable recommendations |
+| **Technical Stack** | **SQL** (PostgreSQL / MySQL) – for querying and aggregating data<br>**Markdown & PDF** – for documentation and sharing insights |
+| **Project Features** | • Analyzed 2 years of real transactional data (2016–2018)<br>• Tracked order growth, seasonality, and time-of-day patterns<br>• Evaluated state performance by customers, revenue, freight, delivery<br>• Measured delivery accuracy (forecast vs. actual)<br>• Analyzed payment method trends and installment usage |
+| **Start-to-End Pipeline** | **Initial Data Exploration** → **Growth & Seasonality Analysis** → **State-wise Performance** → **Logistics & Delivery Accuracy** → **Payment Trends** → **Actionable Recommendations** |
+
 
 ---
 
-## Why This Project
+## The Big Picture
 
 Target expanded into Brazil and wanted to understand how its e‑commerce business was performing. Instead of guessing, we dug into two years of real transactional data to uncover what’s working, what’s not, and where we can grow. This repo shares the SQL queries and insights so the Sales, Marketting teams and Leadership team can make smarter decisions.
 
