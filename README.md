@@ -5,7 +5,7 @@
 
 
 
-## **Quick Overview**
+# **Quick Overview**
 
 | **Section** | **Details** |
 | :--- | :--- |
@@ -188,7 +188,7 @@ We examined how payment methods evolved and how customers use installments.
 
 
 
-## Author
+## 👤 Author
 Shaik Mayeenuddin
 Aspiring Data Scientist Professional | Supply Chain & Marketing Analytics Expert Pursuing a Master’s in Data Science (AI & ML) Student 🔗 https://www.linkedin.com/in/shaikmayeenuddin
 
