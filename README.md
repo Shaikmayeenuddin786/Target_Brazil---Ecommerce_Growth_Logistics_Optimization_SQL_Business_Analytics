@@ -1,5 +1,6 @@
-# **Retailer (Brazil Ecommerce Operations) - TARGET**
+# **Retailer (Brazil E-commerce Operations)**
 ### **SQL Analytics | Logistics Optimization | Top Business Insights & Recommendations**
+<img width="1000" height="666" alt="image" src="https://github.com/user-attachments/assets/a4cd69dc-bf88-4c1d-9c51-2acb73f9a27a" />
 
 ---
 
