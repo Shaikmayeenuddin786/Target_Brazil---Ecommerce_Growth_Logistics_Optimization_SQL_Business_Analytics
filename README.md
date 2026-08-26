@@ -1,9 +1,7 @@
-# Target Brazil – Ecommerce Growth & Logistics Optimization | SQL Analytics, Strategic Recommendations
+# **Retailer (Brazil Ecommerce Operations)** 
+**| SQL Analytics | Logistics Optimization | Strategic Recommendations |**
 
 ---
-
-
-
 
 # **Quick Overview**
 
