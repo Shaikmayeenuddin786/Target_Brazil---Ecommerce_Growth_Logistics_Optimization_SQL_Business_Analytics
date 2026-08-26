@@ -1,5 +1,5 @@
 # **Retailer (Brazil Ecommerce Operations)** 
-**| SQL Analytics | Logistics Optimization | Strategic Recommendations |**
+### **SQL Analytics | Logistics Optimization | Strategic Recommendations**
 
 ---
 
