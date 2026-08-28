@@ -1,0 +1,26 @@
+# Target Brazil - Ecommerce & Logistics Optimization
+# SQL Business Analytics
+
+# Core data processing
+pandas==2.0.3
+numpy==1.24.3
+
+# Database connectors (choose based on your SQL environment)
+# For PostgreSQL
+psycopg2-binary==2.9.9
+
+# For MySQL
+# mysql-connector-python==8.0.33
+
+# For SQLite (built-in, no installation needed)
+
+# Visualization (if you created charts)
+matplotlib==3.7.2
+seaborn==0.12.2
+
+# Jupyter environment
+jupyter==1.0.0
+ipython==8.14.0
+
+# SQL query execution from Python (optional)
+# sqlalchemy==2.0.19
