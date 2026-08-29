@@ -48,25 +48,11 @@ Without this, it’s hard to allocate marketing budgets, optimize shipping, or i
 
 ## Technical Stack
 
-- **SQL** (PostgreSQL / MySQL) – for querying and aggregating the data.
+- **SQL** (PostgreSQL) – for querying and aggregating the data.
 
 - **Markdown & PDF** – for documentation and sharing.
 
 ---
-
-## Repository Structure
-target-brazil-ecommerce-analysis/
-│
-├── README.md # You’re here
-├── queries/ # All SQL scripts (optional, if you separate files)
-│ ├── 01_initial_exploration.sql
-│ ├── 02_growth_seasonality.sql
-│ └── ...
-├── docs/
-│ └── Target_Brazil_Report.pdf # The final printed report
-└── visuals/ # Any charts or images (optional)
-└── order_trends.png
-
 
 ## Analysis Steps
 
