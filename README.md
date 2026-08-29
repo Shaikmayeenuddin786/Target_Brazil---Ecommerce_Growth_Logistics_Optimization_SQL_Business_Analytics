@@ -1,25 +1,26 @@
 # **Retailer (Brazil E-commerce Operations)**
+
 ### **SQL Analytics | Logistics Optimization | Top Business Insights & Recommendations**
+
 <img width="1000" height="666" alt="image" src="https://github.com/user-attachments/assets/a4cd69dc-bf88-4c1d-9c51-2acb73f9a27a" />
 
 ---
 
-# **Quick Overview**
+## Quick Overview
 
 | **Section** | **Details** |
-| :--- | :--- |
-| **Business Problem** | Target Brazil needed to understand its performance. They didn't have clear answers on order growth, which states drive revenue, where logistics are hurting, and what payment habits reveal. Without this, it's hard to allocate budgets or improve shipping. |
+|---------|---------|
+| **Business Problem** | Target Brazil needed to understand its e-commerce performance. They didn't have clear answers on order growth, which states drive revenue, where logistics are hurting, and what payment habits reveal. Without this, it's hard to allocate budgets or improve shipping. |
 | **Objectives** | 1. Measure growth (yearly, monthly, seasonal trends)<br>2. Spot state-wise patterns (revenue, orders, freight, delivery times)<br>3. Evaluate logistics (delivery accuracy, regional issues)<br>4. Understand payment behavior (credit vs. UPI, installments)<br>5. Provide clear, actionable recommendations |
-| **Technical Stack** | **SQL** (PostgreSQL / MySQL) – for querying and aggregating data<br>**Markdown & PDF** – for documentation and sharing insights |
+| **Technical Stack** | SQL (PostgreSQL) – for querying and aggregating data<br>Markdown & PDF – for documentation and sharing insights |
 | **Project Features** | • Analyzed 2 years of real transactional data (2016–2018)<br>• Tracked order growth, seasonality, and time-of-day patterns<br>• Evaluated state performance by customers, revenue, freight, delivery<br>• Measured delivery accuracy (forecast vs. actual)<br>• Analyzed payment method trends and installment usage |
-| **Start-to-End Pipeline** | **Initial Data Exploration** → **Growth & Seasonality Analysis** → **State-wise Performance** → **Logistics & Delivery Accuracy** → **Payment Trends** → **Actionable Recommendations** |
-
+| **Start-to-End Pipeline** | Initial Data Exploration → Growth & Seasonality Analysis → State-wise Performance → Logistics & Delivery Accuracy → Payment Trends → Actionable Recommendations |
 
 ---
 
 ## The Big Picture
 
-Target expanded into Brazil and wanted to understand how its e‑commerce business was performing. Instead of guessing, we dug into two years of real transactional data to uncover what’s working, what’s not, and where we can grow. This repo shares the SQL queries and insights so the Sales, Marketting teams and Leadership team can make smarter decisions.
+Target expanded into Brazil and wanted to understand how its e-commerce business was performing. Instead of guessing, we dug into two years of real transactional data to uncover what’s working, what’s not, and where we can grow. This repo shares the SQL queries and insights so the Sales, Marketing, and Leadership teams can make smarter decisions.
 
 ---
 
@@ -27,10 +28,10 @@ Target expanded into Brazil and wanted to understand how its e‑commerce busine
 
 Target’s Brazil operation needed a clear picture of:
 
-- How orders are growing over time.
-- Which states drive revenue (and which are expensive to serve).
-- Where logistics and delivery are hurting the customer experience.
-- What payment habits can tell us about customer preferences.
+- **How orders are growing** over time.
+- **Which states drive revenue** (and which are expensive to serve).
+- **Where logistics and delivery** are hurting the customer experience.
+- **What payment habits** can tell us about customer preferences.
 
 Without this, it’s hard to allocate marketing budgets, optimize shipping, or improve the checkout experience.
 
@@ -38,34 +39,61 @@ Without this, it’s hard to allocate marketing budgets, optimize shipping, or i
 
 ## Objectives
 
-1. **Measure growth** – yearly, monthly, and seasonal trends.
-2. **Spot state‑wise patterns** – revenue, order volume, freight costs, delivery times.
-3. **Evaluate logistics performance** – how accurate are delivery estimates? Which regions suffer?
-4. **Understand payment behavior** – credit vs. UPI, installment usage, shifts over time.
-5. **Provide actionable recommendations** – not just numbers, but clear next steps.
+- **Measure growth** – yearly, monthly, and seasonal trends.
+- **Spot state-wise patterns** – revenue, order volume, freight costs, delivery times.
+- **Evaluate logistics performance** – how accurate are delivery estimates? Which regions suffer?
+- **Understand payment behavior** – credit vs. UPI, installment usage, shifts over time.
+- **Provide actionable recommendations** – not just numbers, but clear next steps.
 
 ---
 
 ## Technical Stack
 
-- **SQL** (PostgreSQL) – for querying and aggregating the data.
-
+- **SQL (PostgreSQL)** – for querying and aggregating the data.
 - **Markdown & PDF** – for documentation and sharing.
 
 ---
 
-## Analysis Steps
+## Dataset Overview
+
+This project uses the **Brazilian E-Commerce Public Dataset** from Kaggle. The dataset contains 8 CSV files covering orders, customers, payments, products, sellers, and more.
+
+### Key Tables Used:
+
+| **Table** | **Description** |
+|-------|-------------|
+| `customers.csv` | Customer details (IDs, city, state) |
+| `geolocation.csv` | ZIP code mapping to lat/long and state |
+| `order_items.csv` | Items in each order (price, freight, product/seller IDs) |
+| `order_reviews.csv` | Review scores and comments |
+| `orders.csv` | Core order data (status, dates, timestamps) |
+| `payments.csv` | Payment method, installments, transaction value |
+| `products.csv` | Product details (category, dimensions, weight) |
+| `sellers.csv` | Seller details (city, state) |
+
+---
+
+# **Analysis Steps**
 
 ### 1. Initial Exploration
 
 First, we got to know the data: what fields exist, how many customers, cities, and the date range.
 
-** SQL snippet**  
-*(Paste your SQL code snapshot here – e.g., query to check distinct cities/states)*
+**SQL snippet**
+```sql
+-- Checking data types and structure
+SELECT column_name, data_type 
+FROM information_schema.columns 
+WHERE table_name = 'customers';
 
-**Findings:**  
-- Orders span from **2016‑09‑04 to 2018‑10‑17** (about two years).  
-- Customers came from **4120 distinct cities** across all 27 states – wide coverage.
+-- Getting time range
+SELECT MIN(order_purchase_timestamp), MAX(order_purchase_timestamp)
+FROM orders;
+```
+
+**Findings:**
+- **Orders span** from 2016-09-04 to 2018-10-17 (about 2 years).
+- **Customers came from** 4,120 distinct cities across all 27 states – wide coverage.
 
 ---
 
@@ -73,42 +101,86 @@ First, we got to know the data: what fields exist, how many customers, cities, a
 
 We looked at how orders changed year over year and month by month, plus the time of day people prefer to shop.
 
-** SQL snippets**  
-*(Paste your yearly order count, monthly order count, and time‑of‑day queries here)*
+**SQL snippets**
+```sql
+-- Yearly growth check
+SELECT 
+    EXTRACT(YEAR FROM order_purchase_timestamp) AS year,
+    COUNT(*) AS order_count
+FROM orders
+GROUP BY year
+ORDER BY year;
 
-**Findings:**  
-- Orders exploded from **329 in 2016** → **45,000 in 2017** → **54,000 in 2018**.  
-- Peaks in **November 2017** (7,544 orders) and **January 2018** (7,269 orders).  
+-- Monthly seasonality
+SELECT 
+    EXTRACT(YEAR_MONTH FROM order_purchase_timestamp) AS month,
+    COUNT(*) AS order_count
+FROM orders
+GROUP BY month
+ORDER BY month;
+```
+
+**Findings:**
+- **Orders exploded** from 329 in 2016 → 45,000 in 2017 → 54,000 in 2018.
+- **Peaks** in November 2017 (7,544 orders) and January 2018 (7,269 orders).
 - **Afternoon (38,361)** and **Night (34,100)** together account for ~73% of all orders. Dawn is quiet.
 
 ---
 
-### 3. State‑wise Performance
+### 3. State-wise Performance
 
-We drilled into which states contribute the most customers, revenue, and how freight and delivery times vary.
+We deep dived into which states contribute the most customers, revenue, and how freight and delivery times vary.
 
-** SQL snippets**  
-*(Paste queries for: customer distribution by state, total/average order price per state, freight value per state)*
+**SQL snippets**
+```sql
+-- Pulling Customer distribution by state
+SELECT 
+    customer_state,
+    COUNT(DISTINCT customer_id) AS customer_count
+FROM customers
+GROUP BY customer_state
+ORDER BY customer_count DESC;
 
-**Findings:**  
-- **SP** holds **42%** of unique customers and leads with ~$ 5.2M in revenue.  
-- Northern states like **PE, CE, PA** have higher average order values ($ 145–165) – a premium segment.  
-- Freight costs: **SP** pays only **$ 15.15** on average; **RR** and **PB** pay over **$ 42** – a huge disparity.  
-- Delivery times: **SP** averages **8.7 days**; **RR** and **AP** take nearly **30 days**.
+-- Total and average order price by state
+SELECT 
+    c.customer_state,
+    SUM(oi.price) AS total_revenue,
+    AVG(oi.price) AS avg_order_value
+FROM customers c
+JOIN orders o ON c.customer_id = o.customer_id
+JOIN order_items oi ON o.order_id = oi.order_id
+GROUP BY c.customer_state
+ORDER BY total_revenue DESC;
+
+```
+
+**Findings:**
+- **SP holds 42% of unique customers** and leads with ~$5.2M in revenue.
+- **Northern states like PE, CE, PA** have higher average order values ($145–165) – a premium segment.
+- **Freight costs**: SP pays only $15.15 on average; RR and PB pay over $42 – a huge disparity.
+- **Delivery times**: SP averages 8.7 days; RR and AP take nearly 30 days.
 
 ---
 
 ### 4. Logistics & Delivery Accuracy
 
-We compared estimated delivery dates with actual arrivals to see if we’re over‑promising.
+We compared estimated delivery dates with actual arrivals to see if we’re over-promising.
 
-** SQL snippets**  
-*(Paste query for delivery time difference and forecast error)*
+**SQL snippets**
+```sql
+-- Delivery time and forecast error
+SELECT 
+    AVG(DATEDIFF(order_delivered_customer_date, order_purchase_timestamp)) AS actual_delivery_time,
+    AVG(DATEDIFF(order_estimated_delivery_date, order_delivered_customer_date)) AS forecast_error
+FROM orders
+WHERE order_status = 'delivered';
 
-**Findings:**  
-- Average fulfillment cycle: **12.09 days**.  
-- Forecast error: **10.96 days** – meaning customers receive their orders **11 days earlier** than the promised date.  
-- In Northern states, the “expectation gap” is huge (17–20 days early). Great for delight, but we could set tighter estimates to boost conversion.
+```
+
+**Findings:**
+- **Average fulfillment cycle:** 12.09 days.
+- **Forecast error:** 10.96 days – meaning customers receive their orders **11 days earlier** than the promised date.
+- In **Northern states**, the "expectation gap" is huge (17–20 days early). Great for delight, but we could set tighter estimates to boost conversion.
 
 ---
 
@@ -116,66 +188,103 @@ We compared estimated delivery dates with actual arrivals to see if we’re over
 
 We examined how payment methods evolved and how customers use installments.
 
-** SQL snippets**  
-*(Paste queries for monthly orders by payment type and installment distribution)*
+**SQL snippets**
+```sql
+-- Monthly orders by payment type
+SELECT 
+    EXTRACT(YEAR_MONTH FROM o.order_purchase_timestamp) AS month,
+    p.payment_type,
+    COUNT(*) AS order_count
+FROM orders o
+JOIN payments p ON o.order_id = p.order_id
+GROUP BY month, p.payment_type
+ORDER BY month, p.payment_type;
 
-**Findings:**  
-- **Credit cards** dominate (~75%) and grew from 254 orders (Oct 2016) to 4,900 (Aug 2018).  
-- **UPI** share slipped from 20% to 17%.  
-- **Debit cards** jumped from 0.71% to 4.14% in mid‑2018 – worth investigating.  
-- **Vouchers** became nearly 100% of payments in the last two months of data.  
-- **52%** of orders are paid in full; **31.6%** use 2–4 installments; a small group uses 10+ installments for big‑ticket items.
+-- Installment usage
+SELECT 
+    payment_installments,
+    COUNT(*) AS order_count,
+    AVG(payment_value) AS avg_payment
+FROM payments
+GROUP BY payment_installments
+ORDER BY payment_installments;
+```
+
+**Findings:**
+- **Credit cards dominate (~75%)** and grew from 254 orders (Oct 2016) to 4,900 (Aug 2018).
+- **UPI share slipped** from 20% to 17%.
+- **Debit cards jumped** from 0.71% to 4.14% in mid-2018 – worth investigating.
+- **Vouchers became nearly 100%** of payments in the last two months of data.
+- **52% of orders** are paid in full; **31.6%** use 2–4 installments; a small group uses 10+ installments for big-ticket items.
 
 ---
+# Top Actionable Insights & Recommendations
 
-## Key Insights (Quick Summary)
 
-- **Growth is strong**, especially in 2017 and 2018.  
-- **SP is the engine**, but Northern states have higher‑value customers (and much higher logistics cost).  
-- **We deliver earlier than promised** (by ~11 days) – this is a hidden asset.  
-- **Freight costs and delivery times vary wildly** – the North/Northeast need attention.  
+## Key Insights
+
+- **Growth is strong**, especially in 2017 and 2018.
+- **SP is the engine**, but Northern states have **higher-value customers** (and much higher logistics cost).
+- **We deliver earlier than promised** (by ~11 days) – this is a hidden asset.
+- **Freight costs and delivery times vary wildly** – the North/Northeast need attention.
 - **Credit card rules**, but alternative payments (UPI, debit, vouchers) are showing shifts.
 
 ---
 
-## Recommendations
+## **Top Strategic Recommendations**
 
-1. **Double down on SP** – faster delivery, loyalty perks, new features.  
-2. **Help Northern states** – open a small warehouse in the Northeast to cut freight costs; try free shipping on high‑value orders.  
-3. **Prepare for seasonal spikes** – stock up by October; use morning discounts to spread workload.  
-4. **Encourage lower‑cost payments** – give 2–3% discounts for UPI/debit to save on credit card fees.  
-5. **Update delivery estimates** – show the real 12‑day average at checkout; it builds trust.  
-6. **Use “early delivery” in marketing** – stories of “arrived 10 days early” make new shoppers confident.
+### 1. Focus on High-Potential States
+
+Since **42% of our high-value customers are in SP**, we should prioritize rolling out new features, faster delivery, and loyalty rewards in this region. Although these states have fewer customers, they spend much more per order ($150+). Focus on selling premium products in these areas to maximize revenue.
+
+### 2. Optimize Logistics for Remote States
+
+Opening a small warehouse in the Northeast could significantly cut the current $42 average shipping cost. Experiment with free shipping on expensive orders in the Northeast. This encourages customers to buy more at once, making the high travel costs worth it for the company.
+
+### 3. Capitalize on Seasonal Peaks
+
+Sales spike from November through March. We should stock up main warehouses by October so we don't run out of inventory during these peak months. Most people shop in the afternoon and evening. Offering "Morning-Only" discounts can shift some traffic to earlier hours, helping the warehouse team manage the daily workload more effectively.
+
+### 4. Promote Alternative Payment Methods
+
+Credit card processing fees reduce company profits. Offering a small **2-3% discount** for using UPI or Debit cards can help protect our margins. Many customers prefer 10-month payment plans for expensive items. Promoting high-end electronics or furniture with free installation can help these customers decide to buy.
+
+### 5. Monitor and Improve Delivery Performance
+
+We currently deliver **11 days earlier than promised**. Updating our checkout to show these faster, more accurate arrival dates will lead to significantly higher sales. It takes nearly a month to reach states like RR. Partnering with local delivery companies in these spots can cut wait times, keep customers happy, and reduce long-term churn.
+
+### 6. Leverage Customer Reviews
+
+Use "Arrived 10 days early!" stories in advertisements. This builds immediate trust with new shoppers. For customers in far-away states, send a "We're almost there" message halfway through the delivery process. This proactive communication makes the long wait feel much shorter.
 
 ---
 
 ## How to Use This Repository
 
-1. **Clone** the repo:  
-   `git clone https://github.com/your-username/target-brazil-ecommerce-analysis.git`
+1. **Clone the repo:**
+   ```bash
+   git clone https://github.com/your-username/target-brazil-ecommerce-analysis.git
+   ```
+
 2. **Load the data** into your SQL environment (the dataset is not included here due to size; contact the team if needed).
+
 3. **Run the SQL queries** in the `queries/` folder (or copy from the snippets above) to reproduce the analysis.
+
 4. **Explore** – tweak the queries to ask your own questions.
 
 ---
 
-
-
-
-
 ## How to Run
-- Clone the repository.
-- Import the provided dataset into your SQL environment.
-- Run the queries in the queries/ folder in the suggested order.
-- Review the output to reproduce the insights.
 
+1. Clone the repository.
+2. Import the provided dataset into your SQL environment.
+3. Run the queries in the `queries/` folder in the suggested order.
+4. Review the output to reproduce the insights.
 
 ---
+## 👤 Author
 
-
-# 👤 **Author**
-
-### **Shaik Mayeenuddin**
+### Shaik Mayeenuddin
 
 #### Business Analyst | Data Analytics & AI/ML | Optimizing Processes to Drive Revenue & Retention
 
